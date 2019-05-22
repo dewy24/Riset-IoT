@@ -1,3 +1,5 @@
 https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/RaspberryPiFX/raspberryfx.html#section3s4
+http://devilqube.blogspot.com/2013/10/setting-raspberry-pis-javahome.html
+
 export JAVA_HOME=/usr/lib/jvm/jdk-7-oracle-armhf
 export PATH=$JAVA_HOME/bin:$PATH
