@@ -1,0 +1,10 @@
+Agenda 21 Mei 2019
+    • Merakit arduino
+    • Menghubungkan ethernet shield ke arduino
+    • Menampilkan data dari sensor DHT11
+    • Menampilkan data dari sensor DHT11 ke web server
+
+Agenda 22 Mei 2019
+    • Mengaktifasi raspberry pi
+    • Menginstall dan konfigurasi ActiveMQ di raspberry
+    • Mengirimkan data dari arduino ke raspberry melalui ActiveMQ dan MQTT
