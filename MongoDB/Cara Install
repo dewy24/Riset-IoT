@@ -1,0 +1,5 @@
+http://edgytech.com/umongo/
+
+# unzip umongo-linux-all_1-6-2.zip
+# cd umongo-linux-all_1-6-2/
+# ./launch-umongo.sh 
