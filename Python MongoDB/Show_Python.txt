@@ -1,0 +1,18 @@
+from pymongo import MongoClient 
+  
+try: 
+    conn = MongoClient() 
+    print("Connected successfully!!!") 
+except:   
+    print("Could not connect to MongoDB") 
+  
+# database ganti sesuai namanya 
+db = conn.database 
+  
+# Created or Switched to collection names: my_gfg_collection 
+collection = db.my_gfg_collection 
+  
+# Printing the data inserted 
+cursor = collection.find() 
+for record in cursor: 
+    print(record) 
