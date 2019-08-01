@@ -1,0 +1,30 @@
+// start
+// Install apache2 first, after the installation you should be able to see the default page with 'localhost' in your browser.
+sudo apt-get install apache2
+
+//Enable mods in apache2 for cgi (the codes below showed two ways to do it)
+sudo a2enmod cgid
+cd /etc/apache2/mods-enabled
+sudo ln -s /etc/apache2/mods-available/cgi.load
+
+//Modify the config file: /etc/apache2/conf-enabled/serve-cgi-bin.conf to enable python code.
+//<Directory "usr/lib/cgi-bin">
+//             ... ...
+//             AddHandler cgi-script .py          # add this line (there is a blank between cgi-script and .py)
+//</Directory>
+sudo nano /etc/apache2/conf-enabled/serve-cgi-bin.conf
+(tambah : AddHandler cgi-script .py)
+
+//Notice that the default directory for cgi script is /usr/lib/cgi-bin/, so we will create a test file under this directory.
+sudo nano /usr/lib/cgi-bin/selectAll.py
+
+//buat python code selectAll.py didalem nano
+
+//Make the python file executable
+sudo chmod +x /usr/lib/cgi-bin/selectAll.py
+
+// Restart the apache2 service
+sudo service apache2 restart
+
+// jalankan di browser = http://localhost/cgi-bin/selectAll.py
+//selesai
