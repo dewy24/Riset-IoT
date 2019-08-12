@@ -13,6 +13,9 @@ sudo add-apt-repository "deb [arch=amd64,arm64,ppc64el] http://mariadb.mirror.li
 sudo apt update
 sudo apt -y install mariadb-server mariadb-client
 
+//untuk ubuntu mate 18.04
+sudo apt install mariadb-server-10.1
+
 //Step 5: login to MariaDB
 mysql -u root -p
 
