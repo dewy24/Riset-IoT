@@ -1,0 +1,53 @@
+// step 1 edit file in /boot/config.txt
+nano /boot/config.txt
+Add the following lines
+
+dtoverlay=pi3-miniuart-bt
+enable_uart=1
+force_turbo=1
+
+//step 2 edit file in /boot/cmdline.txt
+nano /boot/cmdline.txt
+Remove all references of "console=", for example, if the line reads:
+
+dwc_otg.lpm_enable=0 console=serial0,115200 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait
+
+Change it to:
+
+dwc_otg.lpm_enable=0 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait
+
+step 3 edit file in  /lib/systemd/system/hciuart.service
+nano /lib/systemd/system/hciuart.service
+Comment out the After= line (by adding the # symbol at the begining of the line) and add the following on a new line
+
+After = dev-ttyS0.device
+
+Comment out the ExecStart= line (by adding the # symbol at the begining of the line) and add the following on a new line
+
+ExecStart = /usr/lib/hciattach /dev/ttyS0 bcm43xx 460800 noflow -
+
+step 4 apabila belum menginstal ppp maka install dahulu,
+apt-get install ppp
+kemudian download sakis3g.
+wget "https://cdn.shopify.com/s/files/1/0176/3274/files/sakis3g.tar.gz?3484" -O sakis3g.tar.gz
+
+setelah itu extraxt filenya
+tar -xzvf sakis3g.tar.gz
+
+eksekusi file
+sudo chmod +x sakis3g
+
+step 5 buat file configurasi sebelum menjalankan sakis3g
+nano /etc/sakis3g.conf
+
+Then add the following lines
+
+CUSTOM_TTY="/dev/ttyAMA0"
+BAUD=9600
+
+step terakhir, apabila kartu provider belum dimasukkan, maka masukkan terlebih dahulu.
+kemudian jalan perinta ini: 
+./sakis3g --interactive
+kemudian pilih connecting with 3g
+setelah itu pilih custom tty
+dan pilih nama providernya.
