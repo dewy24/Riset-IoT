@@ -1,0 +1,124 @@
+oprek wemos 
+
+1. Download Esp8266 dan Install
+http://arduino.esp8266.com/stable/package_esp8266com_index.json
+2. Uji lampu blinking di example = esp8266
+3. uji sensor LDR
+4. Uji sensor LM35
+5. Uji sensor Ultrasonik 
+6. Uji sensor DHT11
+
+program DHT
+#include "DHT.h"
+#define DHTPIN D4     // what pin we're connected to
+#define DHTTYPE DHT11   // DHT 22  (AM2302)
+ 
+DHT dht(DHTPIN, DHTTYPE);
+ 
+void setup() 
+{
+  Serial.begin(9600);
+  Serial.println("DHTxx test!");
+  dht.begin();
+}
+ 
+void loop() 
+{
+  // Wait a few seconds between measurements.
+  delay(2000);
+ 
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+  float f = dht.readTemperature(true);
+ 
+  // Check if any reads failed and exit early (to try again).
+  if (isnan(h) || isnan(t) || isnan(f)) 
+  {
+    Serial.println("Failed to read from DHT sensor!");
+    return;
+  }
+ 
+  Serial.print("Humidity: ");
+  Serial.print(h);
+  Serial.print(" %\t");
+  Serial.print("Temperature: ");
+  Serial.print(t);
+  Serial.print(" *C ");
+  Serial.print(f);
+  Serial.println(" *F");
+ 
+}
+
+
+Program LDR
+int sensorValue;
+ 
+void setup()
+{
+  Serial.begin(9600); // starts the serial port at 9600
+}
+ 
+void loop()
+{
+  sensorValue = analogRead(A0); // read analog input pin 0
+  Serial.print(sensorValue, DEC); // prints the value read
+  Serial.print(" \n"); // prints a space between the numbers
+  delay(1000); // wait 100ms for next reading
+}
+
+
+program LM35
+//initializes/defines the output pin of the LM35 temperature sensor
+int outputpin= 0;
+//this sets the ground pin to LOW and the input voltage pin to high
+void setup()
+{
+Serial.begin(9600);
+}
+ 
+//main loop
+void loop()
+{
+int rawvoltage= analogRead(outputpin);
+float millivolts= (rawvoltage/1024.0) * 3300;
+float celsius= millivolts/10;
+Serial.print(celsius);
+Serial.print(" degrees Celsius, ");
+ 
+Serial.print((celsius * 9)/5 + 32);
+Serial.println(" degrees Fahrenheit");
+delay(1000);
+ 
+}
+ 
+
+program Ultrasonik 
+
+#define echoPin D7 // Echo Pin
+#define trigPin D6 // Trigger Pin
+ 
+long duration, distance; // Duration used to calculate distance
+ 
+void setup()
+{
+Serial.begin (9600);
+pinMode(trigPin, OUTPUT);
+pinMode(echoPin, INPUT);
+}
+ 
+void loop()
+{
+/* The following trigPin/echoPin cycle is used to determine the
+distance of the nearest object by bouncing soundwaves off of it. */
+digitalWrite(trigPin, LOW);
+delayMicroseconds(2);
+digitalWrite(trigPin, HIGH);
+delayMicroseconds(10);
+digitalWrite(trigPin, LOW);
+duration = pulseIn(echoPin, HIGH);
+//Calculate the distance (in cm) based on the speed of sound.
+distance = duration/58.2;
+Serial.println(distance);
+//Delay 50ms before next reading.
+delay(50);
+}
